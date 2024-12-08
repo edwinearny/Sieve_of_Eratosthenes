@@ -16,7 +16,7 @@ def soe(s):
 
     buffer = list(set(numbers) - set(composite))
     buffer = list(set(buffer) - set(prime))
-    prime = prime + buffer
+    prime = sorted(prime + buffer)
     return prime
 
 
