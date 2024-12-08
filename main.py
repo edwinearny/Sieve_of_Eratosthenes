@@ -2,21 +2,25 @@
 def soe(s):
     numbers = [i for i in range(2, s + 1)]
     prime = []
-    for j in range(0, len(numbers) + 1):
-        prime.append(numbers[j])
-        if numbers[j] ^ 2 <= s:
-            del numbers[0]
-            for k in range(0, len(numbers) + 1):
+    composite = []
+    for j in numbers:
+        if j in composite:
+            continue
+        prime.append(j)
+        if j ** 2 <= s:
+            for k in range(numbers[j] - 2, len(numbers)):
                 if numbers[k] % j == 0:
-                    numbers.remove(k)
+                    composite.append(numbers[k])
         else:
-            return prime
-    print(numbers)
-    print(prime)
-    return None
+            break
+
+    buffer = list(set(numbers) - set(composite))
+    buffer = list(set(buffer) - set(prime))
+    prime = prime + buffer
+    return prime
 
 
 n = int(input('Enter limit..'))
 
 prime_numbers = soe(n)
-print(prime_numbers)
+print(f'Primes till {n} are {prime_numbers}')
