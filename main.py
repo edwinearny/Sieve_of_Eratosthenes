@@ -1,22 +1,17 @@
 
 def soe(s):
-    numbers = [i for i in range(2, s + 1)]
-    prime = []
-    composite = []
-    for j in numbers:
-        if j in composite:
-            continue
-        prime.append(j)
-        if j ** 2 <= s:
-            for k in range(numbers[j] - 2, len(numbers)):
-                if numbers[k] % j == 0:
-                    composite.append(numbers[k])
-        else:
-            break
+    if s < 2:
+        return []
 
-    buffer = list(set(numbers) - set(composite))
-    buffer = list(set(buffer) - set(prime))
-    prime = sorted(prime + buffer)
+    is_prime = [True] * (s + 1)
+    is_prime[0] = is_prime[1] = False
+
+    for i in range(2, int(s ** 0.5) + 1):
+        if is_prime[i]:
+            for j in range(i * i, s + 1, i):
+                is_prime[j] = False
+
+    prime = [i for i, p in enumerate(is_prime) if p]
     return prime
 
 
